@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 
 class TopicOverview : AppCompatActivity() {
+    lateinit var beginButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topic_overview)
@@ -14,7 +15,7 @@ class TopicOverview : AppCompatActivity() {
         val topicName = findViewById<TextView>(R.id.topicName)
         val numQuestions = findViewById<TextView>(R.id.numQuestions)
         val topicDescription = findViewById<TextView>(R.id.description)
-        val beginButton = findViewById<Button>(R.id.beginButton)
+        beginButton = findViewById(R.id.beginButton)
 
         val topic = intent.getStringExtra("topic")
         val numOfQs = 3
