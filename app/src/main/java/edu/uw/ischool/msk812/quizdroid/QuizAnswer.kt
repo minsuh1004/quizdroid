@@ -16,16 +16,29 @@ class QuizAnswer : AppCompatActivity() {
         val score: TextView = findViewById(R.id.scoreText)
         val button: Button = findViewById(R.id.nxtFinButton)
 
+        val quizApp = (application as QuizApp)
+        val repository = quizApp.topicRepository
+
         val bundle3 = intent.getBundleExtra("bundle") as Bundle
         val currentQuestion = bundle3.getInt("currentQuestion")
         val totalQuestions = intent.getIntExtra("totalQuestions", 1)
         val userAnswer = intent.getStringExtra("userAnswer")
-        val correctAnswer = bundle3.getString("correct")
-        val topic = intent.getStringExtra("topic")
+        val correctAnswer = bundle3.getInt("correct")
+        val topic = intent.getIntExtra("topic", 0)
+        val qIndex = intent.getIntExtra("qIndex", 0)
 
+        val quiz = repository.getQuiz(topic, qIndex)
+
+        val checkCorrect =  when (correctAnswer) {
+            1 -> quiz.a1
+            2 -> quiz.a2
+            3 -> quiz.a3
+            4 -> quiz.a4
+            else -> ""
+        }
 
         chosenText.text = "$userAnswer"
-        correctText.text = "$correctAnswer"
+        correctText.text = checkCorrect
 
         val currentScore = if (chosenText.text == correctText.text) {
             bundle3.getInt("score") + 1

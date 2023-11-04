@@ -10,35 +10,6 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 
 class QuizQuestion : AppCompatActivity() {
-    class Question (val q: String, val a1: String, val a2: String, val a3: String, val a4: String, val correctAnswer: Int) {
-        fun getCorrect() : String {
-            return when (correctAnswer) {
-                1 -> a1
-                2 -> a2
-                3 -> a3
-                4 -> a4
-                else -> ""
-            }
-        }
-    }
-
-    private val mathQuestions: Array<Question> = arrayOf(
-        Question("What is 2 + 2?", "3", "4", "2", "7", 2),
-        Question("What is 13 * 29?", "377", "437", "378", "245", 1),
-        Question("What is the square root of 144?", "8", "16", "13", "12", 4)
-    )
-
-    private val physicsQuestions: Array<Question> = arrayOf(
-        Question("What is the speed in combination of the direction of an object's motion?", "Pressure", "Watt", "Velocity", "Acceleration", 3),
-        Question("Which subatomic particle has neutral charge?", "Proton", "Antineutron", "Electron", "Neutron", 4),
-        Question("What is the equation for measuring pressure?", "P = x/t", "P = F/A", "", "", 2)
-    )
-
-    private val marvelQuestions: Array<Question> = arrayOf(
-        Question("What is Spider-Man's secret identity?", "Ben Parker", "Ben Reilly", "Peter Parker", "Pater Pan", 3),
-        Question("Which superhero fights mainly with a shield?", "Captain America", "Iron Man", "Captain Marvel", "Star-Lord", 1),
-        Question("Who lead the organization S.H.I.E.L.D.?", "Black Widow", "Nick Fury", "Charles Xavier", "Dr. Strange", 2)
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,75 +24,25 @@ class QuizQuestion : AppCompatActivity() {
         val answer4 = findViewById<TextView>(R.id.answer4)
         val submitBtn = findViewById<Button>(R.id.submitButton)
 
+        val quizApp = (application as QuizApp)
+        val repository = quizApp.topicRepository
+
         val bundle : Bundle = intent.getBundleExtra("bundle") as Bundle
-        val topic = intent.getStringExtra("topic")
+        val topic = intent.getIntExtra("topic", 0)
         val currentQuestion = bundle.getInt("currentQuestion")
         val totalQuestions = intent.getIntExtra("totalQuestions", 1)
 
         val qIndex : Int = currentQuestion - 1
+        val quiz = repository.getQuiz(topic, qIndex)
         submitBtn.isVisible = false
 
-        fun topicQuestions(name: String?): String {
-            return when (name) {
-                "Math" -> mathQuestions[qIndex].q
-                "Physics" -> physicsQuestions[qIndex].q
-                "Marvel Super Heroes" -> marvelQuestions[qIndex].q
-                else -> ""
-            }
-        }
-
-        fun choices1(name: String?): String {
-            return when (name) {
-                "Math" -> mathQuestions[qIndex].a1
-                "Physics" -> physicsQuestions[qIndex].a1
-                "Marvel Super Heroes" -> marvelQuestions[qIndex].a1
-                else -> ""
-            }
-        }
-
-        fun choices2(name: String?): String {
-            return when (name) {
-                "Math" -> mathQuestions[qIndex].a2
-                "Physics" -> physicsQuestions[qIndex].a2
-                "Marvel Super Heroes" -> marvelQuestions[qIndex].a2
-                else -> ""
-            }
-        }
-
-        fun choices3(name: String?): String {
-            return when (name) {
-                "Math" -> mathQuestions[qIndex].a3
-                "Physics" -> physicsQuestions[qIndex].a3
-                "Marvel Super Heroes" -> marvelQuestions[qIndex].a3
-                else -> ""
-            }
-        }
-
-        fun choices4(name: String?): String {
-            return when (name) {
-                "Math" -> mathQuestions[qIndex].a4
-                "Physics" -> physicsQuestions[qIndex].a4
-                "Marvel Super Heroes" -> marvelQuestions[qIndex].a4
-                else -> ""
-            }
-        }
-
-        fun correctChoice(name: String?): String {
-            return when (name) {
-                "Math" -> mathQuestions[qIndex].getCorrect()
-                "Physics" -> physicsQuestions[qIndex].getCorrect()
-                "Marvel Super Heroes" -> marvelQuestions[qIndex].getCorrect()
-                else -> ""
-            }
-        }
-
         questionNum.text = "Question $currentQuestion"
-        questionText.text = topicQuestions(topic)
-        answer1.text = choices1(topic)
-        answer2.text = choices2(topic)
-        answer3.text = choices3(topic)
-        answer4.text = choices4(topic)
-        val chosenTopic = correctChoice(topic)
+        questionText.text = quiz.question
+        answer1.text = quiz.a1
+        answer2.text = quiz.a2
+        answer3.text = quiz.a3
+        answer4.text = quiz.a4
+        val correct = quiz.correct
 
         answerChoices.setOnCheckedChangeListener { _, _ ->
             submitBtn.isVisible = true
@@ -130,12 +51,13 @@ class QuizQuestion : AppCompatActivity() {
         submitBtn.setOnClickListener {
             val userAnswer : RadioButton = findViewById(answerChoices.checkedRadioButtonId)
             val bundle2 = Bundle()
-            bundle2.putString("correct", chosenTopic)
+            bundle2.putInt("correct", correct)
             bundle2.putInt("score", bundle.getInt("score"))
             bundle2.putInt("currentQuestion", currentQuestion)
 
             val intent = Intent(this, QuizAnswer::class.java)
             intent.putExtra("topic", topic)
+            intent.putExtra("qIndex", qIndex)
             intent.putExtra("totalQuestions", totalQuestions)
             intent.putExtra("userAnswer", userAnswer.text.toString())
             intent.putExtra("bundle", bundle2)
@@ -148,13 +70,12 @@ class QuizQuestion : AppCompatActivity() {
         val miniBundle : Bundle = intent.getBundleExtra("bundle") as Bundle
         val currentQuestion = miniBundle.getInt("currentQuestion")
         val totalQuestions = intent.getIntExtra("totalQuestions", 1)
-        val topic = intent.getStringExtra("topic")
+        val topic = intent.getIntExtra("topic", 0)
 
         if (currentQuestion == 1) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
-
             val miniBundle2 = Bundle()
             miniBundle2.putInt("score", miniBundle.getInt("score"))
             miniBundle2.putInt("currentQuestion", currentQuestion - 1)
