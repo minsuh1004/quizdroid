@@ -6,17 +6,7 @@ import android.util.Log
 
 
 class Question (val q: String, val a1: String, val a2: String, val a3: String,
-                val a4: String, val correctAnswer: Int) {
-    fun getCorrect() : String {
-        return when (correctAnswer) {
-            1 -> a1
-            2 -> a2
-            3 -> a3
-            4 -> a4
-            else -> ""
-        }
-    }
-}
+                val a4: String, val correctAnswer: Int)
 data class Quiz (
     val question: String,
     val a1: String,
@@ -32,68 +22,6 @@ data class Topic (
     val questions: List<Question>
 )
 
-/*fun topicQuestions(name: String?): String {
-    return when (name) {
-        "Math" -> mathQuestions[qIndex].q
-        "Physics" -> physicsQuestions[qIndex].q
-        "Marvel Super Heroes" -> marvelQuestions[qIndex].q
-        else -> ""
-    }
-}
-
-fun choices1(name: String?): String {
-    return when (name) {
-        "Math" -> mathQuestions[qIndex].a1
-        "Physics" -> physicsQuestions[qIndex].a1
-        "Marvel Super Heroes" -> marvelQuestions[qIndex].a1
-        else -> ""
-    }
-}
-
-fun choices2(name: String?): String {
-    return when (name) {
-        "Math" -> mathQuestions[qIndex].a2
-        "Physics" -> physicsQuestions[qIndex].a2
-        "Marvel Super Heroes" -> marvelQuestions[qIndex].a2
-        else -> ""
-    }
-}
-
-fun choices3(name: String?): String {
-    return when (name) {
-        "Math" -> mathQuestions[qIndex].a3
-        "Physics" -> physicsQuestions[qIndex].a3
-        "Marvel Super Heroes" -> marvelQuestions[qIndex].a3
-        else -> ""
-    }
-}
-
-fun choices4(name: String?): String {
-    return when (name) {
-        "Math" -> mathQuestions[qIndex].a4
-        "Physics" -> physicsQuestions[qIndex].a4
-        "Marvel Super Heroes" -> marvelQuestions[qIndex].a4
-        else -> ""
-    }
-}
-
-fun correctChoice(name: String?): String {
-    return when (name) {
-        "Math" -> mathQuestions[qIndex].getCorrect()
-        "Physics" -> physicsQuestions[qIndex].getCorrect()
-        "Marvel Super Heroes" -> marvelQuestions[qIndex].getCorrect()
-        else -> ""
-    }
-}
-
-fun topicDesc(name: String?): String {
-    return when (name) {
-        "Math" -> ("$descDetails It will contain basic mathematical problems that you need to figure out.")
-        "Physics" -> ("$descDetails It will ask about some physics terms and formulas that you need to see which answer fits the question.")
-        "Marvel Super Heroes" -> ("$descDetails It will ask about some questions based on the history/events of Marvel heroes.")
-        else -> ""
-    }
-}*/
 interface TopicRepository {
     fun getAllTopics() : List<Topic>
     fun getTopic(index: Int) : Topic
