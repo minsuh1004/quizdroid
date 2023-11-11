@@ -16,6 +16,7 @@ class QuizAnswer : AppCompatActivity() {
         val score: TextView = findViewById(R.id.scoreText)
         val button: Button = findViewById(R.id.nxtFinButton)
 
+
         val quizApp = (application as QuizApp)
         val repository = quizApp.topicRepository
 
@@ -30,10 +31,10 @@ class QuizAnswer : AppCompatActivity() {
         val quiz = repository.getQuiz(topic, qIndex)
 
         val checkCorrect =  when (correctAnswer) {
-            1 -> quiz.a1
-            2 -> quiz.a2
-            3 -> quiz.a3
-            4 -> quiz.a4
+            1 -> quiz.answers[0]
+            2 -> quiz.answers[1]
+            3 -> quiz.answers[2]
+            4 -> quiz.answers[3]
             else -> ""
         }
 

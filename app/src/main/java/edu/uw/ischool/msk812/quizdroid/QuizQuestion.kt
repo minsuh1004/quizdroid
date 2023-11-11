@@ -37,12 +37,12 @@ class QuizQuestion : AppCompatActivity() {
         submitBtn.isVisible = false
 
         questionNum.text = "Question $currentQuestion"
-        questionText.text = quiz.question
-        answer1.text = quiz.a1
-        answer2.text = quiz.a2
-        answer3.text = quiz.a3
-        answer4.text = quiz.a4
-        val correct = quiz.correct
+        questionText.text = quiz.text
+        answer1.text = quiz.answers[0]
+        answer2.text = quiz.answers[1]
+        answer3.text = quiz.answers[2]
+        answer4.text = quiz.answers[3]
+        val correct = quiz.answer
 
         answerChoices.setOnCheckedChangeListener { _, _ ->
             submitBtn.isVisible = true

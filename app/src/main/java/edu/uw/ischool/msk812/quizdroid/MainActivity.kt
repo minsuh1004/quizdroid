@@ -6,11 +6,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+//import android.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 
 
 class TopicAdapter(context: Context, private val topics : List<Topic>)
@@ -28,7 +32,7 @@ class TopicAdapter(context: Context, private val topics : List<Topic>)
 
         Log.i("TopicAdapter", "topics[position] = ${topics[position]}")
         titleText.text = topics[position].title
-        descText.text = topics[position].shortDesc
+        //descText.text = topics[position].shortDesc
         return view;
     }
     override fun getCount(): Int {
@@ -39,9 +43,13 @@ class TopicAdapter(context: Context, private val topics : List<Topic>)
 
 class MainActivity : AppCompatActivity() {
     lateinit var quizTopics: ListView
+    lateinit var actionBar : Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        actionBar = findViewById(R.id.toolbar)
+        setSupportActionBar(actionBar)
 
         quizTopics = findViewById(R.id.listView)
 
@@ -55,6 +63,22 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, TopicOverview::class.java)
             intent.putExtra("topic", position)
             startActivity(intent)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.preferences -> {
+                val intent = Intent(this, Preferences::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

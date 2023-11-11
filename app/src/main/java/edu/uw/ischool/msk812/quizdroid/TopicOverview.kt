@@ -23,12 +23,17 @@ class TopicOverview : AppCompatActivity() {
         val topic = intent.getIntExtra("topic", 0)
         val topicInfo = repository.getTopic(topic)
 
-        val numOfQs = 3
-        val numQuestionText = "There are $numOfQs question in this topic."
+        val numOfQs = topicInfo.questions.size
+        val numQuestionText = if (topicInfo.questions.size == 1) {
+            "There is $numOfQs question in this topic."
+        } else {
+            "There are $numOfQs questions in this topic."
+        }
 
         topicName.text = topicInfo.title
         numQuestions.text = numQuestionText
-        topicDescription.text = topicInfo.longDesc
+        //topicDescription.text = topicInfo.longDesc
+        topicDescription.text = topicInfo.desc
 
         val bundle = Bundle()
         bundle.putString("correct", "")
