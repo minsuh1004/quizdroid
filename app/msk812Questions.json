@@ -1,0 +1,110 @@
+[
+  { "title":"Math",
+    "shortDesc":"This quiz will test how well you can solve basic math problems",
+    "longDesc":"It will contain basic mathematical topics and equations around addition, multiplication and simple calculus.",
+    "questions":[
+      {
+        "text":"What is 2 + 2?",
+        "answer":"2",
+        "answers":[
+          "3",
+          "4",
+          "2",
+          "7"
+        ]
+      },
+      {
+        "text":"What is 13 * 29?",
+        "answer":"1",
+        "answers":[
+          "377",
+          "437",
+          "378",
+          "245"
+        ]
+      },
+      {
+        "text":"What is the square root of 144?",
+        "answer":"4",
+        "answers":[
+          "8",
+          "16",
+          "13",
+          "12"
+        ]
+      }
+    ]
+  },
+  { "title":"Physics",
+    "shortDesc":"This quiz will test on your knowledge of some physics facts.",
+    "longDesc":"It will ask about some physics terms and formulas that you need to see which answer fits the question.",
+    "questions":[
+      {
+        "text":"What is the speed in combination of the direction of an object's motion?",
+        "answer":"3",
+        "answers":[
+          "Pressure",
+          "Watt",
+          "Velocity",
+          "Acceleration"
+        ]
+      },
+      {
+        "text":"Which subatomic particle has neutral charge?",
+        "answer":"4",
+        "answers":[
+          "Proton",
+          "Antineutron",
+          "Electron",
+          "Neutron"
+        ]
+      },
+      {
+        "text":"What is the equation for measuring pressure?",
+        "answer":"2",
+        "answers":[
+          "P = x/t",
+          "P = F/A",
+          "P = mg",
+          "P = m/V"
+        ]
+      }
+    ]
+  },
+  { "title":"Marvel Super Heroes",
+    "shortDesc":"This quiz will test your knowledge of Marvel Super Heroes.",
+    "longDesc":"It will ask about some questions based on the history, events, and general information about Marvel heroes.",
+    "questions":[
+      {
+        "text":"What is Spider-Man's secret identity?",
+        "answer":"3",
+        "answers":[
+          "Ben Parker",
+          "Ben Reilly",
+          "Peter Parker",
+          "Peter Pan"
+        ]
+      },
+      {
+        "text":"Which superhero fights mainly with a shield?",
+        "answer":"1",
+        "answers":[
+          "Captain America",
+          "Iron Man",
+          "Captain Marvel",
+          "Star-Lord"
+        ]
+      },
+      {
+        "text":"Who lead the organization S.H.I.E.L.D.?",
+        "answer":"2",
+        "answers":[
+          "Black Widow",
+          "Nick Fury",
+          "Charles Xavier",
+          "Dr. Strange"
+        ]
+      }
+    ]
+  }
+]
