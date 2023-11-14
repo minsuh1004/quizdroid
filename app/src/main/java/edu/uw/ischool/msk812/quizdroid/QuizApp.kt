@@ -16,6 +16,9 @@ import kotlin.io.path.Path
 data class Quiz(val text: String, val answer: Int, val answers: List<String>)
 data class Topic (val title: String, val desc: String, val questions: List<Quiz>)
 
+// Use for extra credit step
+//data class Topic (val title: String, val shortDesc: String, val longDesc: String, val questions: List<Quiz>)
+
 interface TopicRepository {
     fun getAllTopics() : List<Topic>
     fun getTopic(index: Int) : Topic
@@ -23,14 +26,24 @@ interface TopicRepository {
 }
 
 class MockTopicRepository(context: Context) : TopicRepository {
+    // Must upload file into device
     val readFile = File(context.filesDir, "questions.json").readText()
     //val readFile: String = FileReader("/data/user/0/edu.uw.ischool.msk812.quizdroid/files/questions.json").readText()
+
+    // Use for extra credit step
+    //val readFile = File(context.filesDir, "msk812Questions.json").readText()
+
     val fileData: List<Topic> = Gson().fromJson(readFile, object : TypeToken<List<Topic>>() {}.type)
     override fun getAllTopics(): List<Topic> {
         val topicsList : MutableList<Topic> = mutableListOf()
         for (i in fileData.indices) {
             topicsList.add(Topic(fileData[i].title, fileData[i].desc, fileData[i].questions))
         }
+
+        // Use for extra credit step
+        /*for (i in fileData.indices) {
+            topicsList.add(Topic(fileData[i].title, fileData[i].shortDesc, fileData[i].longDesc, fileData[i].questions))
+        }*/
         return fileData
     }
 

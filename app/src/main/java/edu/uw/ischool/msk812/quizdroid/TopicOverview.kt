@@ -32,8 +32,10 @@ class TopicOverview : AppCompatActivity() {
 
         topicName.text = topicInfo.title
         numQuestions.text = numQuestionText
-        //topicDescription.text = topicInfo.longDesc
         topicDescription.text = topicInfo.desc
+
+        // Use for extra credit step
+        //topicDescription.text = topicInfo.longDesc
 
         val bundle = Bundle()
         bundle.putString("correct", "")

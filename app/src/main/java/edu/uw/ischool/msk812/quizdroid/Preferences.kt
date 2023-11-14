@@ -32,10 +32,19 @@ class Preferences : AppCompatActivity() {
         //val prefs = this.getPreferences(Context.MODE_PRIVATE)
 
         prefURL.setText(sharedPref.getString("url", "http://tednewardsandbox.site44.com/questions.json"))
+
+        // Use for extra credit step
+        //val urlExtraText = "https://raw.githubusercontent.com/minsuh1004/quizdroid/part3/app/msk812Questions.json"
+        //prefURL.setText(sharedPref.getString("urlExtra", urlExtraText))
+
         prefTime.setText(sharedPref.getInt("time", 0).toString())
 
         saveBtn.setOnClickListener {
             editor.putString("url", prefURL.text.toString())
+
+            // Use for extra credit
+            //editor.putString("urlExtra", urlExtraText)
+
             editor.putInt("time", prefTime.text.toString().toInt())
             editor.commit()
 
@@ -43,7 +52,5 @@ class Preferences : AppCompatActivity() {
             startActivity(intent)
 
         }
-
-
     }
 }

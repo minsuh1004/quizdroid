@@ -32,6 +32,8 @@ class TopicAdapter(context: Context, private val topics : List<Topic>)
 
         Log.i("TopicAdapter", "topics[position] = ${topics[position]}")
         titleText.text = topics[position].title
+
+        // Use for extra credit step
         //descText.text = topics[position].shortDesc
         return view;
     }
