@@ -1,11 +1,15 @@
 package edu.uw.ischool.msk812.quizdroid
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 //import android.widget.Toolbar
 import androidx.appcompat.widget.Toolbar
 
@@ -33,24 +37,35 @@ class Preferences : AppCompatActivity() {
 
         prefURL.setText(sharedPref.getString("url", "http://tednewardsandbox.site44.com/questions.json"))
 
-        // Use for extra credit step
-        //val urlExtraText = "https://raw.githubusercontent.com/minsuh1004/quizdroid/part3/app/msk812Questions.json"
-        //prefURL.setText(sharedPref.getString("urlExtra", urlExtraText))
-
         prefTime.setText(sharedPref.getInt("time", 0).toString())
 
         saveBtn.setOnClickListener {
             editor.putString("url", prefURL.text.toString())
-
-            // Use for extra credit
-            //editor.putString("urlExtra", urlExtraText)
-
             editor.putInt("time", prefTime.text.toString().toInt())
-            editor.commit()
+            editor.apply()
+
+            startDownloadService(prefTime.text.toString().toInt())
+            Toast.makeText(this, "Scheduled to download from: ${prefURL.text}", Toast.LENGTH_SHORT).show()
+
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
 
         }
+    }
+
+    private fun startDownloadService(minutes: Int) {
+        val activityThis = this
+        val url = prefURL.text.toString()
+        val timeMillis = minutes * 60 * 1000
+
+        val alarmManager : AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(activityThis, AlarmReceiver::class.java).apply { putExtra("url", url) }
+
+        val pendingIntent = PendingIntent.getBroadcast(activityThis, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+            System.currentTimeMillis(),
+            timeMillis.toLong(),
+            pendingIntent)
     }
 }
