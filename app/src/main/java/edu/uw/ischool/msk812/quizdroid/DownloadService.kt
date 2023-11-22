@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
@@ -39,6 +41,9 @@ class DownloadService : IntentService("DownloadService") {
                     outputStream.write(reader.readText().toByteArray())
                     reader.close()
                     outputStream.close()
+                }
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(this, "Download Successful", Toast.LENGTH_LONG).show()
                 }
             }
         } catch (e: Exception) {

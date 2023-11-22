@@ -34,9 +34,6 @@ class TopicOverview : AppCompatActivity() {
         numQuestions.text = numQuestionText
         topicDescription.text = topicInfo.desc
 
-        // Use for extra credit step
-        //topicDescription.text = topicInfo.longDesc
-
         val bundle = Bundle()
         bundle.putString("correct", "")
         bundle.putInt("score", 0)

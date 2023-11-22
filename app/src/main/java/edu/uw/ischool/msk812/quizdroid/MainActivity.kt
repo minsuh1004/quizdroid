@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(actionBar)
         quizTopics = findViewById(R.id.listView)
 
-        val sharedPref = getSharedPreferences("QuizDroidPref", MODE_PRIVATE)
         val internetStatus = checkForInternet(applicationContext)
 
         if(isAirplaneModeOn()) {
@@ -90,6 +89,13 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("topic", position)
                 startActivity(intent)
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(isAirplaneModeOn()){
+            showAirplaneModeDialog()
         }
     }
 

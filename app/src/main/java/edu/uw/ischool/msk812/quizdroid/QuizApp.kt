@@ -4,8 +4,11 @@ import android.app.AlertDialog
 import android.app.Application
 import android.content.Context
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.util.JsonReader
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.runBlocking
@@ -153,6 +156,9 @@ class QuizApp : Application() {
                     outputStream.write(reader.readText().toByteArray())
                     reader.close()
                     outputStream.close()
+                }
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(this, "Download Successful", Toast.LENGTH_LONG).show()
                 }
             }
         } catch (e: Exception) {
